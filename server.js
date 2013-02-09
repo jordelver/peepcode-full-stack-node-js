@@ -9,7 +9,7 @@ var express = require('express')
   , http = require('http')
   , path = require('path');
 
-var app = express();
+var app = module.exports = express();
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
@@ -25,6 +25,10 @@ app.configure(function(){
 
 app.configure('development', function(){
   app.use(express.errorHandler());
+});
+
+app.configure('test', function(){
+  app.set('port', 3001);
 });
 
 require('./apps/authentication/routes')(app);
