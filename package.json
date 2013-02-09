@@ -6,5 +6,8 @@
     "express": "3.1.0",
     "jade": "*",
     "coffee-script": "~1.4.0"
+  },
+  "devDependencies": {
+    "node-dev": "~0.2.10"
   }
 }
