@@ -3,6 +3,13 @@ Pie = require '../../models/pie'
 routes = (app) ->
   app.namespace '/admin', ->
 
+    app.all '/*', (req, res, next) ->
+      if not (req.session.currentUser)
+        req.flash 'error', 'Please login.'
+        res.redirect '/login'
+        return
+      next()
+
     app.namespace '/pies', ->
       app.get '/', (req, res) ->
         pie = new Pie {}
