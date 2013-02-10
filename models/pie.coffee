@@ -4,6 +4,14 @@ class Pie
   @key: ->
     "Pie:#{process.env.NODE_ENV}"
 
+  @all: (callback) ->
+    redis.hgetall Pie.key(), (err, objects) ->
+      pies = []
+      for id, json of objects
+        pie = new Pie JSON.parse(json)
+        pies.push pie
+      callback null, pies
+
   constructor: (attributes) ->
     @[key] = value for key, value of attributes
     @setDefaults()

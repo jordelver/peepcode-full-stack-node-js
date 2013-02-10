@@ -1,0 +1,15 @@
+extends ../../../../views/layout
+
+block content
+  ul#listing
+    each pie in pies
+      li(class=pie.type)
+        div.status
+          div(class=helpers.cssClassForState('inactive', pie.state))
+            p gone
+          div(class=helpers.cssClassForState('making', pie.state))
+            p oven
+          div(class=helpers.cssClassForState('ready', pie.state))
+            p ready
+        = pie.name
+
