@@ -28,6 +28,7 @@ app.configure(function(){
     secret: "I am totes secure",
     store: new RedisStore
   }));
+  app.use(require('connect-assets')());
   app.use(flash());
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));

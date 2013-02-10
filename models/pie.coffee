@@ -15,7 +15,7 @@ class Pie
       callback null, pies
 
   @getById: (id, callback) ->
-    redis.hget Pie.Key(), id, (err, json) ->
+    redis.hget Pie.key(), id, (err, json) ->
       if json is null
         callback new Error("Pie '#{id}' could not be found.")
         return

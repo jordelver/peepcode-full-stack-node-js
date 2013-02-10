@@ -10,7 +10,8 @@
     "connect-redis": "~1.4.5",
     "hiredis": "~0.1.14",
     "connect-flash": "~0.1.0",
-    "express-namespace": "~0.1.1"
+    "express-namespace": "~0.1.1",
+    "connect-assets": "~2.3.3"
   },
   "devDependencies": {
     "node-dev": "~0.2.10",
