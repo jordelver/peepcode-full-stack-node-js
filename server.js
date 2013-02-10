@@ -11,6 +11,8 @@ var express = require('express')
   , RedisStore = require('connect-redis')(express)
   , flash = require('connect-flash');
 
+require('express-namespace');
+
 var app = module.exports = express();
 
 app.configure(function(){
@@ -39,9 +41,13 @@ app.configure('test', function(){
   app.set('port', 3001);
 });
 
+// Global helpers
+require('./apps/helpers')(app);
+
 require('./middleware/upgrade')(app);
 
 require('./apps/authentication/routes')(app);
+require('./apps/admin/routes')(app);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
