@@ -29,6 +29,12 @@ routes = (app) ->
           req.flash 'info', "Pie #{pie.name} was saved."
           res.redirect '/admin/pies'
 
+      app.put '/:id', (req, res) ->
+        Pie.getById req.params.id, (err, pie) ->
+          if req.body.state in Pie.states
+            pie[req.body.state] ->
+              res.send "OK"
+
     app.namespace '/menu', (req, res) ->
 
       app.get '/stage', (req, res) ->
