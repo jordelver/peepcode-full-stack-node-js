@@ -49,6 +49,7 @@ require('./middleware/upgrade')(app);
 
 require('./apps/authentication/routes')(app);
 require('./apps/admin/routes')(app);
+require('./apps/sidewalk/routes')(app);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

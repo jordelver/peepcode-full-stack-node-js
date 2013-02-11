@@ -14,6 +14,11 @@ class Pie
         pies.push pie
       callback null, pies
 
+  @active: (callback) ->
+    Pie.all (err, pies) ->
+      activePies = (pie for pie in pies when pie.state isnt 'inactive')
+      callback null, activePies
+
   @getById: (id, callback) ->
     redis.hget Pie.key(), id, (err, json) ->
       if json is null
