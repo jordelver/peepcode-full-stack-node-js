@@ -33,6 +33,8 @@ routes = (app) ->
         Pie.getById req.params.id, (err, pie) ->
           if req.body.state in Pie.states
             pie[req.body.state] ->
+              if socketIO = app.settings.socketIO
+                socketIO.sockets.emit "pie:changed", pie
               res.send "OK"
 
     app.namespace '/menu', (req, res) ->

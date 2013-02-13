@@ -4,16 +4,15 @@
  */
 
 require('coffee-script');
-
-var express = require('express')
-  , http = require('http')
-  , path = require('path')
-  , RedisStore = require('connect-redis')(express)
-  , flash = require('connect-flash');
+var express = require('express');
 
 require('express-namespace');
 
-var app = module.exports = express();
+var app = module.exports = express()
+  , io = require('socket.io')
+  , path = require('path')
+  , RedisStore = require('connect-redis')(express)
+  , flash = require('connect-flash');
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
@@ -51,6 +50,17 @@ require('./apps/authentication/routes')(app);
 require('./apps/admin/routes')(app);
 require('./apps/sidewalk/routes')(app);
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log("Express server listening on port " + app.get('port'));
+server = app.listen(app.settings.port);
+console.log("Express server listening on port %d in %s mode", app.settings.port, app.settings.env);
+
+// Socket IO
+socketIO = io.listen(server);
+
+if(!app.settings.socketIO) {
+  app.set('socketIO', socketIO)
+}
+
+socketIO.sockets.on('connection', function(socket){
+  console.log('CONNECTED')
 });
+
